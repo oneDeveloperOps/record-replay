@@ -16,6 +16,7 @@ public class Post {
     private Integer id;
 
     @JsonProperty(value = "post_name")
+    @Column(unique = true)
     private String postName;
 
     @JsonProperty(value = "post_content")

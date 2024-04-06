@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.http.HttpResponse;
+import java.util.HashMap;
+
 
 @RestController
 @RequestMapping("/post")
@@ -19,12 +20,12 @@ public class PostController {
     private PostService postService;
 
     @PostMapping("/create-new-post")
-    private ResponseEntity<Post> createNewPost(@RequestBody Post post) {
+    private ResponseEntity<?> createNewPost(@RequestBody Post post) {
         try {
-            Post newPost = postService.createPost(post);
-            return ResponseEntity.ok(newPost);
+            HashMap<String, Object> responseObject = postService.createPost(post);
+            return ResponseEntity.ok(responseObject);
         } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body(null);
+            return ResponseEntity.internalServerError().body(new HashMap<>().put("exception", ex.getMessage()));
         }
     }
 }
