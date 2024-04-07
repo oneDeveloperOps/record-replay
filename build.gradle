@@ -21,6 +21,10 @@ repositories {
 	mavenCentral()
 }
 
+bootJar {
+	launchScript()
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -35,4 +39,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.nfr.record.RecordApplication'
+	}
 }
